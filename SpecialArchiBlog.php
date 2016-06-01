@@ -52,18 +52,28 @@ class SpecialArchiBlog extends \SpecialPage
                 'exlimit'=>10
             )
         );
-        $wikitext = '';
+        $images = $this->apiRequest(
+            array(
+                'action'=>'query',
+                'prop'=>'images',
+                'titles'=>implode('|', $changes),
+                'imlimit'=>1
+            )
+        );
         foreach ($changes as $id => $name) {
             if (isset($extracts['query']['pages'][$id]['extract'])) {
                 $title = \Title::newFromText($name);
-                $wikitext .= '=='.$title->getText().'=='.PHP_EOL;
+                $wikitext = '=='.$title->getText().'=='.PHP_EOL;
+                if (isset($images['query']['pages'][$title->getArticleID()]['images'])) {
+                    $wikitext .= '[['.$images['query']['pages'][$title->getArticleID()]['images'][0]['title'].
+                        '|thumb|left|100px]]';
+                }
                 $wikitext .= $extracts['query']['pages'][$id]['extract']['*'].PHP_EOL.PHP_EOL;
-                $wikitext .= '[['.$title->getFullText().'|Lire la suite]]'.PHP_EOL.PHP_EOL;
+                $wikitext .= '[['.$title.'|Lire la suite]]'.PHP_EOL.PHP_EOL;
+                $output->addWikiText($wikitext);
+                $output->addHTML('<div style="clear:both;"></div>');
             }
         }
-
-        $output->addWikiText($wikitext);
-
     }
 
     public function getGroupName()
