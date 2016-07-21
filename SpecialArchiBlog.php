@@ -43,20 +43,13 @@ class SpecialArchiBlog extends \SpecialPage
         $extracts = $this->apiRequest(
             array(
                 'action'=>'query',
-                'prop'=>'extracts',
+                'prop'=>'extracts|images',
                 'titles'=>implode('|', $changes),
                 'explaintext'=>true,
                 'exintro'=>true,
                 'exchars'=>250,
                 'exsectionformat'=>'plain',
-                'exlimit'=>10
-            )
-        );
-        $images = $this->apiRequest(
-            array(
-                'action'=>'query',
-                'prop'=>'images',
-                'titles'=>implode('|', $changes),
+                'exlimit'=>10,
                 'imlimit'=>1
             )
         );
@@ -64,8 +57,8 @@ class SpecialArchiBlog extends \SpecialPage
             if (isset($extracts['query']['pages'][$id]['extract'])) {
                 $title = \Title::newFromText($name);
                 $wikitext = '=='.$title->getText().'=='.PHP_EOL;
-                if (isset($images['query']['pages'][$title->getArticleID()]['images'])) {
-                    $wikitext .= '[['.$images['query']['pages'][$title->getArticleID()]['images'][0]['title'].
+                if (isset($extracts['query']['pages'][$title->getArticleID()]['images'])) {
+                    $wikitext .= '[['.$extracts['query']['pages'][$title->getArticleID()]['images'][0]['title'].
                         '|thumb|left|100px]]';
                 }
                 $wikitext .= $extracts['query']['pages'][$id]['extract']['*'].PHP_EOL.PHP_EOL;
