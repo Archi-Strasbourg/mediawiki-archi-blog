@@ -17,6 +17,7 @@ class SpecialArchiBlog extends \SpecialPage
         );
         $api = new \ApiMain($params);
         $api->execute();
+
         return $api->getResult()->getResultData();
     }
 
@@ -26,32 +27,32 @@ class SpecialArchiBlog extends \SpecialPage
         $this->setHeaders();
 
         $news = $this->apiRequest(
-            array(
-                'action'=>'query',
-                'list'=>'recentchanges',
-                'rcnamespace'=>NS_NEWS,
-                'rclimit'=>10,
-                'rctype'=>'new'
-            )
+            [
+                'action'      => 'query',
+                'list'        => 'recentchanges',
+                'rcnamespace' => NS_NEWS,
+                'rclimit'     => 10,
+                'rctype'      => 'new',
+            ]
         );
-        $changes = array();
+        $changes = [];
         foreach ($news['query']['recentchanges'] as $change) {
             if (isset($change['title'])) {
                 $changes[$change['pageid']] = $change['title'];
             }
         }
         $extracts = $this->apiRequest(
-            array(
-                'action'=>'query',
-                'prop'=>'extracts|images',
-                'titles'=>implode('|', $changes),
-                'explaintext'=>true,
-                'exintro'=>true,
-                'exchars'=>250,
-                'exsectionformat'=>'plain',
-                'exlimit'=>10,
-                'imlimit'=>1
-            )
+            [
+                'action'          => 'query',
+                'prop'            => 'extracts|images',
+                'titles'          => implode('|', $changes),
+                'explaintext'     => true,
+                'exintro'         => true,
+                'exchars'         => 250,
+                'exsectionformat' => 'plain',
+                'exlimit'         => 10,
+                'imlimit'         => 1,
+            ]
         );
         foreach ($changes as $id => $name) {
             if (isset($extracts['query']['pages'][$id]['extract'])) {
@@ -71,6 +72,6 @@ class SpecialArchiBlog extends \SpecialPage
 
     public function getGroupName()
     {
-           return 'pages';
+        return 'pages';
     }
 }
