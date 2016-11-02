@@ -68,6 +68,7 @@ class SpecialArchiBlog extends \SpecialPage
                 $output->addHTML('<div style="clear:both;"></div>');
             }
         }
+        $output->addWikiText('[[Special:Toutes les pages/Actualité:|Toutes les actualités]]');
     }
 
     public function getGroupName()
