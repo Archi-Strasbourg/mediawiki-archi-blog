@@ -1,16 +1,17 @@
 <?php
 /**
- * SpecialArchiBlog class
+ * SpecialArchiBlog class.
  */
+
 namespace ArchiBlog;
 
 /**
- * SpecialPage Special:ArchiBlog that lists recent news articles
+ * SpecialPage Special:ArchiBlog that lists recent news articles.
  */
 class SpecialArchiBlog extends \SpecialPage
 {
     /**
-     * SpecialArchiBlog constructor
+     * SpecialArchiBlog constructor.
      */
     public function __construct()
     {
@@ -18,8 +19,10 @@ class SpecialArchiBlog extends \SpecialPage
     }
 
     /**
-     * Send a request to the MediaWiki API
-     * @param  array $options Request parameters
+     * Send a request to the MediaWiki API.
+     *
+     * @param array $options Request parameters
+     *
      * @return array
      */
     private function apiRequest(array $options)
@@ -35,7 +38,8 @@ class SpecialArchiBlog extends \SpecialPage
     }
 
     /**
-     * Display the special page
+     * Display the special page.
+     *
      * @return void
      */
     public function execute()
@@ -89,7 +93,8 @@ class SpecialArchiBlog extends \SpecialPage
     }
 
     /**
-     * Return the special page category
+     * Return the special page category.
+     *
      * @return string
      */
     public function getGroupName()
