@@ -1,15 +1,28 @@
 <?php
-
+/**
+ * SpecialArchiBlog class
+ */
 namespace ArchiBlog;
 
+/**
+ * SpecialPage Special:ArchiBlog that lists recent news articles
+ */
 class SpecialArchiBlog extends \SpecialPage
 {
+    /**
+     * SpecialArchiBlog constructor
+     */
     public function __construct()
     {
         parent::__construct('ArchiBlog');
     }
 
-    private function apiRequest($options)
+    /**
+     * Send a request to the MediaWiki API
+     * @param  array $options Request parameters
+     * @return array
+     */
+    private function apiRequest(array $options)
     {
         $params = new \DerivativeRequest(
             $this->getRequest(),
@@ -21,7 +34,11 @@ class SpecialArchiBlog extends \SpecialPage
         return $api->getResult()->getResultData();
     }
 
-    public function execute($par)
+    /**
+     * Display the special page
+     * @return void
+     */
+    public function execute()
     {
         $output = $this->getOutput();
         $this->setHeaders();
@@ -71,6 +88,10 @@ class SpecialArchiBlog extends \SpecialPage
         $output->addWikiText('[[Special:Toutes les pages/Actualité:|Toutes les actualités]]');
     }
 
+    /**
+     * Return the special page category
+     * @return string
+     */
     public function getGroupName()
     {
         return 'pages';
