@@ -86,12 +86,12 @@ class SpecialArchiBlog extends \SpecialPage
                         '|thumb|left|100px]]';
                 }
                 $wikitext .= $extracts['query']['pages'][$id]['extract']['*'].PHP_EOL.PHP_EOL;
-                $wikitext .= '[['.$title.'|Lire la suite]]'.PHP_EOL.PHP_EOL;
+                $wikitext .= '[['.$title.'|'.wfMessage('readmore')->parse().']]'.PHP_EOL.PHP_EOL;
                 $output->addWikiText($wikitext);
                 $output->addHTML('<div style="clear:both;"></div>');
             }
         }
-        $output->addWikiText('[[Special:Toutes les pages/Actualité:|Toutes les actualités]]');
+        $output->addWikiText('[[Special:Toutes les pages/Actualité:|'.wfMessage('allblog')->parse().']]');
     }
 
     /**
