@@ -1,6 +1,8 @@
 {
 	"manifest_version": 1,
 	"name": "ArchiBlog",
+	"version": "0.1.1",
+	"license-name": "GPL-3.0",
 	"author": "Pierre Rudloff",
 	"url": "https://github.com/Archi-Strasbourg/mediawiki-archi-blog",
 	"description": "Custom blog page for archi-wiki.org",
