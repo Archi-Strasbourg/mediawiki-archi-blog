@@ -74,7 +74,6 @@ class SpecialArchiBlog extends \SpecialPage
                 'exchars'         => 250,
                 'exsectionformat' => 'plain',
                 'exlimit'         => 10,
-                'imlimit'         => 1,
             ]
         );
         foreach ($changes as $id => $name) {
