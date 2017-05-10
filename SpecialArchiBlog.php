@@ -81,7 +81,6 @@ class SpecialArchiBlog extends \SpecialPage
             if (isset($extracts['query']['pages'][$id]['extract'])) {
                 $title = \Title::newFromText($name);
                 $creationDate = new \DateTime($title->getEarliestRevTime());
-                setlocale(LC_TIME, 'fr_FR');
                 $wikitext = '=='.$title->getText().' ('.trim(strftime('%x', $creationDate->getTimestamp())).')=='.PHP_EOL;
                 if (isset($extracts['query']['pages'][$title->getArticleID()]['images'])) {
                     $wikitext .= '[['.$extracts['query']['pages'][$title->getArticleID()]['images'][0]['title'].
