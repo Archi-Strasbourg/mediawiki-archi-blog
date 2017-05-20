@@ -52,7 +52,7 @@ class SpecialArchiBlog extends \SpecialPage
         $news = $this->apiRequest(
             [
                 'action'      => 'ask',
-                'query'       => '[[Actualité:+]]|?Date de publication|sort=Date de publication|order=desc'
+                'query'       => '[[Actualité:+]]|?Date de publication|sort=Date de publication|order=desc|limit=10'
             ]
         );
         $changes = [];
