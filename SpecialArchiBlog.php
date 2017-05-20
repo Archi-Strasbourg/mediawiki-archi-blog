@@ -51,17 +51,15 @@ class SpecialArchiBlog extends \SpecialPage
 
         $news = $this->apiRequest(
             [
-                'action'      => 'query',
-                'list'        => 'recentchanges',
-                'rcnamespace' => NS_NEWS,
-                'rclimit'     => 10,
-                'rctype'      => 'new',
+                'action'      => 'ask',
+                'query'       => '[[Actualité:+]]|?Date de publication|sort=Date de publication|order=desc'
             ]
         );
         $changes = [];
-        foreach ($news['query']['recentchanges'] as $change) {
-            if (isset($change['title'])) {
-                $changes[$change['pageid']] = $change['title'];
+        foreach ($news['query']['results'] as $change) {
+            if (isset($change['fulltext'])) {
+                $title = \Title::newFromText($change['fulltext']);
+                $changes[$title->getArticleID()] = $change['fulltext'];
             }
         }
         $extracts = $this->apiRequest(
@@ -81,7 +79,7 @@ class SpecialArchiBlog extends \SpecialPage
             if (isset($extracts['query']['pages'][$id]['extract'])) {
                 $title = \Title::newFromText($name);
                 $creationDate = new \DateTime($title->getEarliestRevTime());
-                $wikitext = '=='.$title->getText().' ('.trim(strftime('%x', $creationDate->getTimestamp())).')=='.PHP_EOL;
+                $wikitext = '=='.$title->getText().'=='.PHP_EOL;
                 if (isset($extracts['query']['pages'][$title->getArticleID()]['images'])) {
                     $wikitext .= '[['.$extracts['query']['pages'][$title->getArticleID()]['images'][0]['title'].
                         '|thumb|left|100px]]';
