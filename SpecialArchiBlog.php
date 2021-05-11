@@ -5,6 +5,8 @@
 
 namespace ArchiBlog;
 
+use MWException;
+
 /**
  * SpecialPage Special:ArchiBlog that lists recent news articles.
  */
@@ -43,6 +45,7 @@ class SpecialArchiBlog extends \SpecialPage
      * @param string $subPage
      *
      * @return void
+     * @throws MWException
      */
     public function execute($subPage)
     {
@@ -86,11 +89,11 @@ class SpecialArchiBlog extends \SpecialPage
                 }
                 $wikitext .= $extracts['query']['pages'][$id]['extract']['*'].PHP_EOL.PHP_EOL;
                 $wikitext .= '[['.$title.'|'.wfMessage('readmore')->parse().']]'.PHP_EOL.PHP_EOL;
-                $output->addWikiText($wikitext);
+                $output->addWikiTextAsContent($wikitext);
                 $output->addHTML('<div style="clear:both;"></div>');
             }
         }
-        $output->addWikiText('[[Special:Toutes les pages/Actualité:|'.wfMessage('allblog')->parse().']]');
+        $output->addWikiTextAsInterface('[[Special:Toutes les pages/Actualité:|'.wfMessage('allblog')->parse().']]');
     }
 
     /**
