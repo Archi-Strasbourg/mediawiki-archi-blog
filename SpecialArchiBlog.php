@@ -81,7 +81,6 @@ class SpecialArchiBlog extends \SpecialPage
         foreach ($changes as $id => $name) {
             if (isset($extracts['query']['pages'][$id]['extract'])) {
                 $title = \Title::newFromText($name);
-                $creationDate = new \DateTime($title->getEarliestRevTime());
                 $wikitext = '=='.$title->getText().'=='.PHP_EOL;
                 if (isset($extracts['query']['pages'][$title->getArticleID()]['images'])) {
                     $wikitext .= '[['.$extracts['query']['pages'][$title->getArticleID()]['images'][0]['title'].
